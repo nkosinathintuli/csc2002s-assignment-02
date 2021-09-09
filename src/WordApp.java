@@ -29,30 +29,29 @@ public class WordApp {
 	static 	Score score = new Score();
 
 	static WordPanel w;
-	
-	
-	
+
+
+
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
     	JFrame frame = new JFrame("WordGame"); 
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(frameX, frameY);
-      JPanel g = new JPanel();
-      g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
-      g.setSize(frameX,frameY);
-    	
-		w = new WordPanel(words,yLimit);
-		w.setSize(frameX,yLimit+100);
-	   g.add(w); 
-	    
-      JPanel txt = new JPanel();
-      txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
-      JLabel caught =new JLabel("Caught: " + score.getCaught() + "    ");
-      JLabel missed =new JLabel("Missed:" + score.getMissed()+ "    ");
-      JLabel scr =new JLabel("Score:" + score.getScore()+ "    ");    
-      txt.add(caught);
-	   txt.add(missed);
-	   txt.add(scr);
+        JPanel g = new JPanel();
+        g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS)); 
+        g.setSize(frameX,frameY);
+
+	w = new WordPanel(words,yLimit);
+	w.setSize(frameX,yLimit+100);
+	g.add(w);
+        JPanel txt = new JPanel();
+        txt.setLayout(new BoxLayout(txt, BoxLayout.LINE_AXIS)); 
+        JLabel caught =new JLabel("Caught: " + score.getCaught() + "    ");
+        JLabel missed =new JLabel("Missed:" + score.getMissed()+ "    ");
+        JLabel scr =new JLabel("Score:" + score.getScore()+ "    ");    
+        txt.add(caught);
+	txt.add(missed);
+	txt.add(scr);
     
 	    //[snip]
   
@@ -129,6 +128,9 @@ public class WordApp {
 	public static void main(String[] args) {
     	
 		//deal with command line arguments
+		if (args.length == 0){
+			args = "10 3 data/example_dict.txt".split(" ");
+		}
 		totalWords=Integer.parseInt(args[0]);  //total words to fall
 		noWords=Integer.parseInt(args[1]); // total words falling at any point
 		assert(totalWords>=noWords); // this could be done more neatly

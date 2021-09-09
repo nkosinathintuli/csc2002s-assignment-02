@@ -73,22 +73,36 @@ public class WordApp {
 		TimerTask tt = new TimerTask(){
 			@Override
 			public void run(){
-				scr.setText();
-				caught.setText();
-				missed.setText();
+				scr.setText("Score:" + w.score.getScore() + "    ");
+				caught.setText("Caught:" + w.score.getCaught()+ "    ");
+				missed.setText("Missed:" + w.score.getMissed()+ "    ");
 				txt.repaint();
 			}
 		}
+		
 		JPanel b = new JPanel();
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 		JButton startB = new JButton("Start");;
-		
-		Timer time = new Timer();
+		Timer tmr = new Timer();
+		static int num = 0;
+		static int con = 0;
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-			//[snip] 
-			textEntry.requestFocus();  //return focus to the text entry field
+				//[snip] 
+				if(con==0){
+					Thread t =new Thread(w);
+					w.p=0;
+					//timer excutes keeps updating the score everytime
+					if(num==0){
+						tmr.schedule(tt,10,10);
+						num++;
+					}
+					w.done=false;
+					con++;
+					t.start();
+				}			   
+				textEntry.requestFocus();  //return focus to the text entry field
 			}
 		});
 		JButton endB = new JButton("End");;
@@ -96,7 +110,9 @@ public class WordApp {
 		// add the listener to the jbutton to handle the "pressed" event
 		endB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-			//[snip]
+				//[snip]
+				w.done=true;
+				con=0;
 			}
 		});
 

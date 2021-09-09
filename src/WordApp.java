@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import java.util.*
+import java.util.*;
 //import java.util.Scanner;
 //import java.util.concurrent.*;
 //model is separate from the view.
@@ -58,11 +58,11 @@ public class WordApp {
 		final JTextField textEntry = new JTextField("",20);
 		textEntry.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
-			String text = textEntry.getText();
-			//[snip]
-			w.word=text;
-			textEntry.setText("");
-			textEntry.requestFocus();
+				String text = textEntry.getText();
+				//[snip]
+				w.word=text;
+				textEntry.setText("");
+				textEntry.requestFocus();
 			}
 		});
 
@@ -73,9 +73,9 @@ public class WordApp {
 		TimerTask tt = new TimerTask(){
 			@Override
 			public void run(){
-				scr.setText("Score:" + w.score.getScore() + "    ");
 				caught.setText("Caught:" + w.score.getCaught()+ "    ");
 				missed.setText("Missed:" + w.score.getMissed()+ "    ");
+				scr.setText("Score:" + w.score.getScore() + "    ");
 				txt.repaint();
 			}
 		}
@@ -137,10 +137,10 @@ public class WordApp {
 
 			dictStr=new String[dictLength];
 			for (int i=0;i<dictLength;i++) {
-			dictStr[i]=new String(dictReader.next());
-			//System.out.println(i+ " read '" + dictStr[i]+"'"); //for checking
-		}
-		dictReader.close();
+				dictStr[i]=new String(dictReader.next());
+				//System.out.println(i+ " read '" + dictStr[i]+"'"); //for checking
+			}
+			dictReader.close();
 		} catch (IOException e) {
 			System.err.println("Problem reading file " + filename + " default dictionary will be used");
 		}

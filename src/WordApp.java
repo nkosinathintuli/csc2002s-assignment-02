@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-
-import java.util.Scanner;
-import java.util.concurrent.*;
+import java.util.*
+//import java.util.Scanner;
+//import java.util.concurrent.*;
 //model is separate from the view.
 
 public class WordApp {
@@ -60,6 +60,7 @@ public class WordApp {
 			public void actionPerformed(ActionEvent evt) {
 			String text = textEntry.getText();
 			//[snip]
+			w.word=text;
 			textEntry.setText("");
 			textEntry.requestFocus();
 			}
@@ -68,15 +69,25 @@ public class WordApp {
 		txt.add(textEntry);
 		txt.setMaximumSize( txt.getPreferredSize() );
 		g.add(txt);
-
+		
+		TimerTask tt = new TimerTask(){
+			@Override
+			public void run(){
+				scr.setText();
+				caught.setText();
+				missed.setText();
+				txt.repaint();
+			}
+		}
 		JPanel b = new JPanel();
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 		JButton startB = new JButton("Start");;
-
+		
+		Timer time = new Timer();
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-			//[snip]
+			//[snip] 
 			textEntry.requestFocus();  //return focus to the text entry field
 			}
 		});

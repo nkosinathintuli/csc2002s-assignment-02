@@ -78,7 +78,7 @@ public class WordApp {
 				scr.setText("Score:" + w.score.getScore() + "    ");
 				txt.repaint();
 			}
-		}
+		};
 		
 		JPanel b = new JPanel();
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 

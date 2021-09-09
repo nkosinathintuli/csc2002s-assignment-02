@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.util.*;
+import java.util.Timer;
 //import java.util.Scanner;
 //import java.util.concurrent.*;
 //model is separate from the view.
@@ -84,8 +85,8 @@ public class WordApp {
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 		JButton startB = new JButton("Start");;
 		Timer tmr = new Timer();
-		static int num = 0;
-		static int con = 0;
+		int num = 0;
+		int con = 0;
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

@@ -9,6 +9,8 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.util.TimerTask;
+import java.util.Timer;
 
 public class WordPanel extends JPanel implements Runnable {
 	public static volatile boolean done;

@@ -8,7 +8,9 @@ The following repo contains the source code for the WordApp(Falling Words) Game.
 1. Clone this repository.
 
 2. Go to main directory and run the Makefile to compile the java files.
-
+```bash
+make run
+```
 3. After compiling you can run the WordApp program from a terminal using this command:
 ```bash
 make run
@@ -17,7 +19,6 @@ make run
 ```bash
 make run input="20 3 example_dict.txt"
 ```
-
 5. Once the WordApp app starts, click on Start button, which should start start the game by releasing the falling words.  
 
 4. You can then play the game by type the word falling on the screen, you get a point for typing the word before it reaches the bottom.

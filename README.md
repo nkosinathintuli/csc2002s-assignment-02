@@ -9,8 +9,10 @@ The following repo contains the source code for the WordApp(Falling Words) Game.
 
 2. Go to main directory and run the Makefile to compile the java files.
 
-3. After compiling you can run the WordApp program from a terminal using this command $ make run.
-
+3. After compiling you can run the WordApp program from a terminal using this command:
+```bash
+ make run.
+```
 4. The $ make run has an option input param to include 3 params as follows, the total number of words for the game, the number of word faliing on the current screen, the text file containing the words e.g. 
 ```bash
 	make run input="20 3 example_dict.txt".

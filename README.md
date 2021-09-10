@@ -11,7 +11,10 @@ The following repo contains the source code for the WordApp(Falling Words) Game.
 
 3. After compiling you can run the WordApp program from a terminal using this command $ make run.
 
-4. The $ make run has an option input param to include 3 params as follows, the total number of words for the game, the number of word faliing on the current screen, the text file containing the words e.g. make run input="20 3 example_dict.txt".
+4. The $ make run has an option input param to include 3 params as follows, the total number of words for the game, the number of word faliing on the current screen, the text file containing the words e.g. 
+```bash
+	make run input="20 3 example_dict.txt".
+```
 
 5. Once the WordApp app starts, click on Start button, which should start start the game by releasing the falling words.  
 

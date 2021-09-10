@@ -93,7 +93,7 @@ public class WordApp {
 				//[snip]
 				if(cn == 0){
 					Thread t = new Thread(w);
-					w.p=cn;
+					w.pt=cn;
 					if(no==0){
 						timer.schedule(ttask,10,10);	no++;
 					}
@@ -184,7 +184,7 @@ public class WordApp {
 		for (int i=0;i<noWords;i++) {
 			words[i]=new WordRecord(dict.getNewWord(),i*x_inc,yLimit);
 		}
-		w.total=totalWords;
+		w.totalWords=totalWords;
 	}
 
 }

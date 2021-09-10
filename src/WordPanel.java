@@ -26,7 +26,7 @@ public class WordPanel extends JPanel implements Runnable {
 	public int p=0;
 	public String word="";
 	public int total=0;
-	
+
 	public void paintComponent(Graphics g) {
 		int width = getWidth();
 		int height = getHeight();
@@ -38,7 +38,7 @@ public class WordPanel extends JPanel implements Runnable {
 		g.setFont(new Font("Helvetica", Font.PLAIN, 26));
 		//draw the words
 		//animation must be added 
-		for (int i=0;i<noWords;i++){	    	
+		for (int i=0;i<noWords;i++){
 			//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
 			g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);  //y-offset for skeleton so that you can see the words	
 		}
@@ -49,77 +49,73 @@ public class WordPanel extends JPanel implements Runnable {
 		this.words=words; //will this work?
 		noWords = words.length;
 		done=false;
-		this.maxY=maxY;		
+		this.maxY=maxY;
 	}
 
 	public void run() {
 		//add in code to animate this
 		for (int k=0; k<noWords;k++){
-			execute ex= new execute(k);
-			ex.start();
+			(new execute(k)).start();
 		}
 	}
 
 	public class execute{
-		Timer time = new Timer();
-		TimerTask task;
-		int i;
+		Timer timer = new Timer();
+		TimerTask ttask;
+		int k;
 		int speed;
-		public execute(int i) {
-			this.task = new TimerTask() {
-			@Override
-			public void run() {
-				if (find(i) || move(i)){
-					time.cancel();
-					execute ex= new execute(i);
-					setSpeed(words[i].getSpeed()/10);
-					ex.start();
-				} 
-				if(score.getTotal()>=total){
-					time.cancel();
+		public execute(int k) {
+			this.ttask = new TimerTask() {
+				@Override
+				public void run() {
+					if (find(k) || move(k)){
+						timer.cancel();
+						//execute ex= new execute(i);
+						setSpeed(words[k].getSpeed()/10);
+						(new execute(k)).start();
+					}
+					if(score.getTotal()>=total){
+						timer.cancel();
+					}
+					if(done){
+						timer.cancel();
+						score.resetScore();
+						words[k].resetWord();
+					}
 				}
-				if(done){
-					time.cancel();
-					score.resetScore();
-					words[i].resetWord();
-				}
-			}
-		};
-		this.i=i;
-		this.speed = words[i].getSpeed()/10;
+			};
+		this.k=k;
+		this.speed = words[k].getSpeed()/10;
 		}
 
 		public void setSpeed(int speed){
 			this.speed = speed;
 		}
 		public  void update(){
-			time.cancel();
+			timer.cancel();
 		}
 		public  void start(){
-			time.schedule(task,0,speed);
+			timer.schedule(ttask,0,speed);
 		}
-	}    
+	}
 
-	public synchronized boolean move(int i){
-		boolean dropped = words[i].dropped();
-		words[i].drop(1);
+	public synchronized boolean move(int j){
+		boolean dropped = words[j].dropped();
+		words[j].drop(1);
 		if(dropped){
-			words[i].resetWord();
-			score.missedWord();
+			words[j].resetWord();	score.missedWord();
 		}
-		repaint(); 
+		repaint();
 		return dropped;
 	}
 
-
-
-	public synchronized boolean find(int i){
-		boolean answer=false;
-		if(words[i].matchWord(word)){
+	public synchronized boolean find(int m){
+		boolean ans=false;
+		if(words[m].matchWord(word)){
 			score.caughtWord(word.length());
-			answer=true;
+			ans=true;
 			repaint();
 		}
-		return answer;
+		return ans;
 	}
 }

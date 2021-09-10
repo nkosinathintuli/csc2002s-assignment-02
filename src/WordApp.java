@@ -24,8 +24,8 @@ public class WordApp {
    	static int frameX=1000;
 	static int frameY=600;
 	static int yLimit=480;
-        static int num=0;
-	static int con=0;
+        static int no=0;
+	static int cn=0;
 	static WordDictionary dict = new WordDictionary(); //use default dictionary, to read from file eventually
 
 	static WordRecord[] words;
@@ -76,9 +76,7 @@ public class WordApp {
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 		JButton startB = new JButton("Start");;
 
-		java.util.Timer time =new java.util.Timer();
-		TimerTask task;
-		task = new TimerTask() {
+		TimerTask ttask = new TimerTask() {
 			//update the score of the game
 			@Override
 			public void run() {
@@ -88,21 +86,19 @@ public class WordApp {
 				txt.repaint();
 			}
 		};
-
+		Timer timer = new Timer();
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				//[snip]
-				if(con==0){
-					Thread t =new Thread(w);
-					w.p=0;
-					//timer excutes keeps updating the score everytime
-					if(num==0){
-						time.schedule(task,10,10);
-						num++;
+				if(cn == 0){
+					Thread t = new Thread(w);
+					w.p=cn;
+					if(no==0){
+						timer.schedule(ttask,10,10);	no++;
 					}
 					w.done=false;
-					con++;
+					cn++;
 					t.start();
 				}
 				textEntry.requestFocus();  //return focus to the text entry field
@@ -113,16 +109,14 @@ public class WordApp {
 		// add the listener to the jbutton to handle the "pressed" event
 		endB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				// w.p++;
-				w.done=true;
-				con=0;
+				w.done=true;	cn=0;
 			}
 		});
 
 		JButton quit = new JButton("Quit");
 		quit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-
+				System.exit(0);
 			}
 		});
 
@@ -158,6 +152,9 @@ public class WordApp {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		//handle zero arguments
+		if(args.length==0)
+			args="5 2 data/example_dict.txt".split(" ");
 		//deal with command line arguments
 		totalWords=Integer.parseInt(args[0]);  //total words to fall
 		// totalWords=sc.nextInt();

@@ -54,6 +54,28 @@ public class WordPanel extends JPanel implements Runnable {
 	}
 
 	
+
+	public synchronized boolean move(int i){
+		boolean dropped = words[i].dropped();
+		words[i].drop(1);
+		if(dropped){
+			words[i].resetWord();
+			score.missedWord();  
+		}
+		repaint(); 
+		return dropped;
+	}
+
+	public synchronized boolean find(int i){
+		boolean answer=false;
+		if(words[i].matchWord(word)){
+			score.caughtWord(word.length());
+			answer=true;
+			repaint();
+		}
+		return answer;
+	}
+
 }
 
 

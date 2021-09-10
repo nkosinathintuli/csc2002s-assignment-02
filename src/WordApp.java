@@ -8,10 +8,10 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import java.util.*;
+//import java.util.*;
 import java.util.Timer;
-//import java.util.Scanner;
-//import java.util.concurrent.*;
+import java.util.Scanner;
+import java.util.concurrent.*;
 //model is separate from the view.
 
 public class WordApp {
@@ -31,8 +31,6 @@ public class WordApp {
 	static 	Score score = new Score();
 	
 	static WordPanel w;
-
-
 
 	public static void setupGUI(int frameX,int frameY,int yLimit) {
 		// Frame init and dimensions
@@ -72,7 +70,8 @@ public class WordApp {
 		txt.setMaximumSize( txt.getPreferredSize() );
 		g.add(txt);
 		
-		TimerTask tt = new TimerTask(){
+		TimerTask tt;
+		tt = new TimerTask(){
 			@Override
 			public void run(){
 				caught.setText("Caught:" + w.score.getCaught()+ "    ");

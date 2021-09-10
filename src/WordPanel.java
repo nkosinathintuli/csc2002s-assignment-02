@@ -53,7 +53,49 @@ public class WordPanel extends JPanel implements Runnable {
 		}
 	}
 
-	
+	public class execute{
+		Timer time =new Timer();
+		TimerTask task;
+		int i;
+		int speed;
+		public execute(int i) {
+			this.task = new TimerTask() {
+				@Override
+				public void run() {
+					if (find(i) || move(i)){
+						time.cancel();
+						execute x= new execute(i);
+						setSpeed(words[i].getSpeed()/10);
+						x.start();
+					} 
+
+					if(score.getTotal()>=total){
+						time.cancel();
+					}
+
+					if(done){
+						time.cancel();
+						score.resetScore();
+						words[i].resetWord();
+					}
+				}
+			};
+			this.i=i;
+			this.speed = words[i].getSpeed()/10;
+		}
+
+		public void setSpeed(int speed){
+			this.speed = speed;
+		}
+
+		public void update(){
+			time.cancel();    
+		}
+
+		public void start(){
+			time.schedule(task,0,speed);
+		}
+	} 
 
 	public synchronized boolean move(int i){
 		boolean dropped = words[i].dropped();

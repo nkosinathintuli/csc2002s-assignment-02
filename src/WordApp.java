@@ -114,7 +114,7 @@ public class WordApp {
 		});
 
 		JButton quitB = new JButton("Quit");
-		quit.addActionListener(new ActionListener(){
+		quitB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.exit(0);
 			}

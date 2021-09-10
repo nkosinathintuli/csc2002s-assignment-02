@@ -1,27 +1,43 @@
 //package skeletonCodeAssgnmt2;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+/**
+ *
+ * @author sammy
+ */
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.CountDownLatch;
+import static java.lang.Thread.sleep;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import java.util.TimerTask;
 import java.util.Timer;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+
 
 public class WordPanel extends JPanel implements Runnable {
-	public static volatile boolean done;
+	public static boolean done=false;
 	private WordRecord[] words;
 	private int noWords;
 	private int maxY;
+			
 	public static  Score score= new Score();
 	public int p=0;
 	public String word="";
 	public int total=0;
-
+	
 	public void paintComponent(Graphics g) {
 		int width = getWidth();
 		int height = getHeight();
@@ -31,13 +47,10 @@ public class WordPanel extends JPanel implements Runnable {
 
 		g.setColor(Color.black);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 26));
-		//draw the words
-		//animation must be added 
 		for (int i=0;i<noWords;i++){	    	
 			//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
 			g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);  //y-offset for skeleton so that you can see the words	
 		}
-
 	}
 
 	WordPanel(WordRecord[] words, int maxY) {
@@ -46,13 +59,12 @@ public class WordPanel extends JPanel implements Runnable {
 		done=false;
 		this.maxY=maxY;		
 	}
-
+	
 	public void run() {
-		//add in code to animate this
-		for (int i=0; i<noWords;i++){
-			execute x = new execute(i);
-			x.start();
-		}
+		for (int k=0; k<noWords;k++){
+			execute ex= new execute(k);
+			ex.start();
+		}           
 	}
 
 	public class execute{
@@ -66,15 +78,15 @@ public class WordPanel extends JPanel implements Runnable {
 				public void run() {
 					if (find(i) || move(i)){
 						time.cancel();
-						execute x= new execute(i);
+						execute ex= new execute(i);
 						setSpeed(words[i].getSpeed()/10);
-						x.start();
+						ex.start();
 					} 
-
+					
 					if(score.getTotal()>=total){
 						time.cancel();
 					}
-
+					
 					if(done){
 						time.cancel();
 						score.resetScore();
@@ -89,7 +101,7 @@ public class WordPanel extends JPanel implements Runnable {
 		public void setSpeed(int speed){
 			this.speed = speed;
 		}
-
+		
 		public void update(){
 			time.cancel();    
 		}
@@ -97,8 +109,8 @@ public class WordPanel extends JPanel implements Runnable {
 		public void start(){
 			time.schedule(task,0,speed);
 		}
-	} 
-
+	}    
+		 
 	public synchronized boolean move(int i){
 		boolean dropped = words[i].dropped();
 		words[i].drop(1);
@@ -109,7 +121,7 @@ public class WordPanel extends JPanel implements Runnable {
 		repaint(); 
 		return dropped;
 	}
-
+		
 	public synchronized boolean find(int i){
 		boolean answer=false;
 		if(words[i].matchWord(word)){
@@ -119,7 +131,4 @@ public class WordPanel extends JPanel implements Runnable {
 		}
 		return answer;
 	}
-
 }
-
-

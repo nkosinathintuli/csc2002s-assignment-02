@@ -113,7 +113,7 @@ public class WordApp {
 			}
 		});
 
-		JButton quit = new JButton("Quit");
+		JButton quitB = new JButton("Quit");
 		quit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.exit(0);
@@ -122,14 +122,14 @@ public class WordApp {
 
 		b.add(startB);
 		b.add(endB);
-		b.add(quit);
+		b.add(quitB);
 		g.add(b);
 
 		frame.setLocationRelativeTo(null);  // Center window on screen.
 		frame.add(g); //add contents to window
-		frame.setContentPane(g);     
+		frame.setContentPane(g);
 		//frame.pack();  // don't do this - packs it into small space
-		frame.setVisible(true);	
+		frame.setVisible(true);
 	}
 
 	public static String[] getDictFromFile(String filename) {
@@ -157,32 +157,20 @@ public class WordApp {
 			args="5 2 data/example_dict.txt".split(" ");
 		//deal with command line arguments
 		totalWords=Integer.parseInt(args[0]);  //total words to fall
-		// totalWords=sc.nextInt();
-		noWords=Integer.parseInt(args[1]);
-		// noWords=sc.nextInt();
-
-		// total words falling at any point
+		noWords=Integer.parseInt(args[1]); // total words falling at any point
 		assert(totalWords>=noWords); // this could be done more neatly
 		String[] tmpDict=getDictFromFile(args[2]); //file of words
-
-		if (tmpDict!=null){
-			dict= new WordDictionary(tmpDict);
+		if (tmpDict!=null){	dict= new WordDictionary(tmpDict);
 		}
-
 		WordRecord.dict=dict; //set the class dictionary for the words.
-
 		words = new WordRecord[noWords];  //shared array of current words
 
 		//[snip]
-
 		setupGUI(frameX, frameY, yLimit);  
 		//Start WordPanel thread - for redrawing animation
-
 		int x_inc=(int)frameX/noWords;
 		//initialize shared array of current words
-
-		for (int i=0;i<noWords;i++) {
-			words[i]=new WordRecord(dict.getNewWord(),i*x_inc,yLimit);
+		for (int i=0;i<noWords;i++) {	words[i]=new WordRecord(dict.getNewWord(),i*x_inc,yLimit);
 		}
 		w.totalWords=totalWords;
 	}

@@ -63,16 +63,13 @@ public class WordPanel extends JPanel implements Runnable {
 		TimerTask ttask;
 		int k;
 		int speed;
-		
+
 		public void start(){	timer.schedule(ttask,0,speed);
 		}
-		
 		public void setSpeed(int s){	speed = s;
 		}
-				
 		public  void update(){	timer.cancel();
 		}
-		
 		public execute(int k) {
 			this.ttask = new TimerTask() {
 				@Override

@@ -1,4 +1,5 @@
-# csc2002s-assignment-02
+# WordApp
+## CSC2002S Assignment 02 Concurrent Programming: Falling Words
 
 ## Overview
 The following repo contains the source code for the WordApp(Falling Words) Game.

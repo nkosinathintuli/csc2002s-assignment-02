@@ -5,24 +5,24 @@ import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static java.lang.Thread.sleep;
-
-import java.util.TimerTask;
-import java.util.Timer;
 import java.util.concurrent.CountDownLatch;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
+import static java.lang.Thread.sleep;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class WordPanel extends JPanel implements Runnable {
 	public static boolean done=false;
 	private WordRecord[] words;
 	private int noWords;
 	private int maxY;
-			
-	public static  Score score= new Score();
+	public static  Score score = new Score();
 	public int p=0;
 	public String word="";
 	public int total=0;
@@ -36,10 +36,13 @@ public class WordPanel extends JPanel implements Runnable {
 
 		g.setColor(Color.black);
 		g.setFont(new Font("Helvetica", Font.PLAIN, 26));
+		//draw the words
+		//animation must be added 
 		for (int i=0;i<noWords;i++){	    	
 			//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
 			g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);  //y-offset for skeleton so that you can see the words	
 		}
+
 	}
 
 	WordPanel(WordRecord[] words, int maxY) {
@@ -48,69 +51,68 @@ public class WordPanel extends JPanel implements Runnable {
 		done=false;
 		this.maxY=maxY;		
 	}
-	
+
 	public void run() {
+		//add in code to animate this
 		for (int k=0; k<noWords;k++){
 			execute ex= new execute(k);
 			ex.start();
-		}           
+		}
 	}
 
 	public class execute{
-		Timer time =new Timer();
+		Timer time = new Timer();
 		TimerTask task;
 		int i;
 		int speed;
 		public execute(int i) {
 			this.task = new TimerTask() {
-				@Override
-				public void run() {
-					if (find(i) || move(i)){
-						time.cancel();
-						execute ex= new execute(i);
-						setSpeed(words[i].getSpeed()/10);
-						ex.start();
-					} 
-					
-					if(score.getTotal()>=total){
-						time.cancel();
-					}
-					
-					if(done){
-						time.cancel();
-						score.resetScore();
-						words[i].resetWord();
-					}
+			@Override
+			public void run() {
+				if (find(i) || move(i)){
+					time.cancel();
+					execute ex= new execute(i);
+					setSpeed(words[i].getSpeed()/10);
+					ex.start();
+				} 
+				if(score.getTotal()>=total){
+					time.cancel();
 				}
-			};
-			this.i=i;
-			this.speed = words[i].getSpeed()/10;
+				if(done){
+					time.cancel();
+					score.resetScore();
+					words[i].resetWord();
+				}
+			}
+		};
+		this.i=i;
+		this.speed = words[i].getSpeed()/10;
 		}
 
 		public void setSpeed(int speed){
 			this.speed = speed;
 		}
-		
-		public void update(){
-			time.cancel();    
+		public  void update(){
+			time.cancel();
 		}
-
-		public void start(){
+		public  void start(){
 			time.schedule(task,0,speed);
 		}
 	}    
-		 
+
 	public synchronized boolean move(int i){
 		boolean dropped = words[i].dropped();
 		words[i].drop(1);
 		if(dropped){
 			words[i].resetWord();
-			score.missedWord();  
+			score.missedWord();
 		}
 		repaint(); 
 		return dropped;
 	}
-		
+
+
+
 	public synchronized boolean find(int i){
 		boolean answer=false;
 		if(words[i].matchWord(word)){

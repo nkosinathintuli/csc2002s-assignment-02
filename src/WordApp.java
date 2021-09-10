@@ -22,13 +22,14 @@ public class WordApp {
    	static int frameX=1000;
 	static int frameY=600;
 	static int yLimit=480;
-
+	static int con = 0;
+	static int num = 0;
 	static WordDictionary dict = new WordDictionary(); //use default dictionary, to read from file eventually
 
 	static WordRecord[] words;
 	static volatile boolean done;  //must be volatile
 	static 	Score score = new Score();
-
+	
 	static WordPanel w;
 
 
@@ -80,13 +81,12 @@ public class WordApp {
 				txt.repaint();
 			}
 		};
-		
+
 		JPanel b = new JPanel();
 		b.setLayout(new BoxLayout(b, BoxLayout.LINE_AXIS)); 
 		JButton startB = new JButton("Start");;
 		Timer tmr = new Timer();
-		int num = 0;
-		int con = 0;
+
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

@@ -1,14 +1,5 @@
 //package skeletonCodeAssgnmt2;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author sammy
- */
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Font;
@@ -24,8 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-
 
 public class WordPanel extends JPanel implements Runnable {
 	public static boolean done=false;
